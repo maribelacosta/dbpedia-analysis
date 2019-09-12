@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+</style>
+<body>
+<svg width="650" height="650"></svg>
+
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var c = [];
+c = c.concat(d3.schemeCategory20);
+c = c.concat(d3.schemeCategory20c);
+
+var color = d3.scaleOrdinal(c);
+console.log("color", d3.schemeCategory20);
+
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+    
+
+var graph = {'nodes': [{'id': 'TSZ2000', 'group': 1, 'value': 138}, {'id': 'Laparmakerli', 'group': 1, 'value': 40}, {'id': 'Mgns', 'group': 1, 'value': 43}, {'id': 'ThermoS', 'group': 1, 'value': 19}, {'id': 'Agnbipa', 'group': 1, 'value': 34}, {'id': 'Aloifolia', 'group': 1, 'value': 199}, {'id': 'Jan Martin.Keil', 'group': 1, 'value': 1}, {'id': 'RalphSchaefermeier', 'group': 1, 'value': 8}, {'id': 'BinaMeusl', 'group': 1, 'value': 5}, {'id': 'Maxjakob', 'group': 1, 'value': 4}, {'id': 'Kreis', 'group': 1, 'value': 5}, {'id': 'Jimkont', 'group': 1, 'value': 6}, {'id': 'Kr1kr1kr1', 'group': 1, 'value': 1}, {'id': 'Vadim Onufriev', 'group': 1, 'value': 7}, {'id': 'Jimregan', 'group': 1, 'value': 2}, {'id': 'Chile', 'group': 1, 'value': 2}, {'id': 'Chrisahn', 'group': 1, 'value': 10}, {'id': 'SebastianHellmann', 'group': 1, 'value': 1}, {'id': 'Jeandbp', 'group': 1, 'value': 2}, {'id': 'SebastianSchwarz', 'group': 1, 'value': 1}, {'id': 'Sekrebs', 'group': 1, 'value': 4}, {'id': 'Halilayyildiz', 'group': 1, 'value': 1}, {'id': 'Kr3l', 'group': 1, 'value': 1}, {'id': 'VladimirAlexiev', 'group': 1, 'value': 2}, {'id': 'Nono', 'group': 1, 'value': 1}, {'id': 'Miku', 'group': 1, 'value': 1}, {'id': 'Cklee', 'group': 1, 'value': 1}, {'id': 'AnjaJentzsch', 'group': 1, 'value': 3}, {'id': 'Tmetzke', 'group': 1, 'value': 2}, {'id': 'Vkirilichev', 'group': 1, 'value': 1}, {'id': 'Snownettle', 'group': 1, 'value': 4}, {'id': 'Kristina', 'group': 1, 'value': 3}, {'id': 'JakobVoss', 'group': 1, 'value': 1}, {'id': 'RobertIsele', 'group': 1, 'value': 1}, {'id': 'Gewild', 'group': 1, 'value': 1}], 'links': [{'source': 'TSZ2000', 'target': 'Laparmakerli', 'value': 11, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Agnbipa', 'value': 12, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Aloifolia', 'value': 91, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Aloifolia', 'value': 18, 'group': 'de'}, {'source': 'Jan Martin.Keil', 'target': 'Mgns', 'value': 1, 'group': 'de'}, {'source': 'Jan Martin.Keil', 'target': 'Aloifolia', 'value': 1, 'group': 'de'}, {'source': 'Mgns', 'target': 'Aloifolia', 'value': 10, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'ThermoS', 'value': 7, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'RalphSchaefermeier', 'value': 4, 'group': 'de'}, {'source': 'ThermoS', 'target': 'RalphSchaefermeier', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'BinaMeusl', 'value': 5, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Mgns', 'value': 17, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Mgns', 'value': 8, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'BinaMeusl', 'value': 3, 'group': 'de'}, {'source': 'Mgns', 'target': 'BinaMeusl', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Maxjakob', 'value': 3, 'group': 'de'}, {'source': 'Maxjakob', 'target': 'Aloifolia', 'value': 3, 'group': 'de'}, {'source': 'Kreis', 'target': 'Aloifolia', 'value': 5, 'group': 'de'}, {'source': 'ThermoS', 'target': 'Mgns', 'value': 5, 'group': 'de'}, {'source': 'ThermoS', 'target': 'Jimkont', 'value': 2, 'group': 'de'}, {'source': 'ThermoS', 'target': 'Aloifolia', 'value': 3, 'group': 'de'}, {'source': 'Mgns', 'target': 'Jimkont', 'value': 1, 'group': 'de'}, {'source': 'Jimkont', 'target': 'Aloifolia', 'value': 3, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Kr1kr1kr1', 'value': 1, 'group': 'de'}, {'source': 'ThermoS', 'target': 'Laparmakerli', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Jimregan', 'value': 2, 'group': 'de'}, {'source': 'Aloifolia', 'target': 'Jimregan', 'value': 1, 'group': 'de'}, {'source': 'Chile', 'target': 'Chrisahn', 'value': 1, 'group': 'de'}, {'source': 'Chile', 'target': 'ThermoS', 'value': 1, 'group': 'de'}, {'source': 'Chile', 'target': 'Jimkont', 'value': 1, 'group': 'de'}, {'source': 'Chile', 'target': 'SebastianHellmann', 'value': 1, 'group': 'de'}, {'source': 'Chrisahn', 'target': 'ThermoS', 'value': 4, 'group': 'de'}, {'source': 'Chrisahn', 'target': 'Jimkont', 'value': 1, 'group': 'de'}, {'source': 'Chrisahn', 'target': 'SebastianHellmann', 'value': 1, 'group': 'de'}, {'source': 'ThermoS', 'target': 'SebastianHellmann', 'value': 1, 'group': 'de'}, {'source': 'Jimkont', 'target': 'SebastianHellmann', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Chrisahn', 'value': 4, 'group': 'de'}, {'source': 'Chrisahn', 'target': 'Aloifolia', 'value': 6, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Jeandbp', 'value': 2, 'group': 'de'}, {'source': 'Aloifolia', 'target': 'Jeandbp', 'value': 2, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'SebastianSchwarz', 'value': 1, 'group': 'de'}, {'source': 'ThermoS', 'target': 'Sekrebs', 'value': 1, 'group': 'de'}, {'source': 'Chrisahn', 'target': 'Sekrebs', 'value': 1, 'group': 'de'}, {'source': 'Halilayyildiz', 'target': 'Sekrebs', 'value': 1, 'group': 'de'}, {'source': 'Halilayyildiz', 'target': 'Agnbipa', 'value': 1, 'group': 'de'}, {'source': 'Halilayyildiz', 'target': 'Kr3l', 'value': 1, 'group': 'de'}, {'source': 'Sekrebs', 'target': 'Agnbipa', 'value': 1, 'group': 'de'}, {'source': 'Sekrebs', 'target': 'Kr3l', 'value': 1, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Kr3l', 'value': 1, 'group': 'de'}, {'source': 'Mgns', 'target': 'Laparmakerli', 'value': 2, 'group': 'de'}, {'source': 'ThermoS', 'target': 'VladimirAlexiev', 'value': 2, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Laparmakerli', 'value': 3, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Nono', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Miku', 'value': 1, 'group': 'de'}, {'source': 'Nono', 'target': 'Miku', 'value': 1, 'group': 'de'}, {'source': 'Cklee', 'target': 'Agnbipa', 'value': 1, 'group': 'de'}, {'source': 'Cklee', 'target': 'Chrisahn', 'value': 1, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Chrisahn', 'value': 1, 'group': 'de'}, {'source': 'Aloifolia', 'target': 'AnjaJentzsch', 'value': 2, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Tmetzke', 'value': 1, 'group': 'de'}, {'source': 'Jimkont', 'target': 'Vkirilichev', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Snownettle', 'value': 2, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Kreis', 'value': 1, 'group': 'de'}, {'source': 'ThermoS', 'target': 'Agnbipa', 'value': 5, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'AnjaJentzsch', 'value': 2, 'group': 'de'}, {'source': 'Aloifolia', 'target': 'BinaMeusl', 'value': 2, 'group': 'de'}, {'source': 'BinaMeusl', 'target': 'AnjaJentzsch', 'value': 1, 'group': 'de'}, {'source': 'Aloifolia', 'target': 'Kristina', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'JakobVoss', 'value': 1, 'group': 'de'}, {'source': 'Mgns', 'target': 'Chrisahn', 'value': 2, 'group': 'de'}, {'source': 'Mgns', 'target': 'VladimirAlexiev', 'value': 1, 'group': 'de'}, {'source': 'AnjaJentzsch', 'target': 'RobertIsele', 'value': 1, 'group': 'de'}, {'source': 'AnjaJentzsch', 'target': 'Sekrebs', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'RobertIsele', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Sekrebs', 'value': 1, 'group': 'de'}, {'source': 'RobertIsele', 'target': 'Sekrebs', 'value': 1, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Kristina', 'value': 1, 'group': 'de'}, {'source': 'Mgns', 'target': 'Kristina', 'value': 1, 'group': 'de'}, {'source': 'RalphSchaefermeier', 'target': 'Laparmakerli', 'value': 1, 'group': 'de'}, {'source': 'Jimregan', 'target': 'Agnbipa', 'value': 1, 'group': 'de'}, {'source': 'Jimregan', 'target': 'BinaMeusl', 'value': 1, 'group': 'de'}, {'source': 'ThermoS', 'target': 'Jeandbp', 'value': 1, 'group': 'de'}, {'source': 'ThermoS', 'target': 'BinaMeusl', 'value': 1, 'group': 'de'}, {'source': 'Agnbipa', 'target': 'Jeandbp', 'value': 1, 'group': 'de'}, {'source': 'Jeandbp', 'target': 'BinaMeusl', 'value': 1, 'group': 'de'}, {'source': 'Laparmakerli', 'target': 'Jimkont', 'value': 1, 'group': 'de'}, {'source': 'Chile', 'target': 'Laparmakerli', 'value': 1, 'group': 'de'}, {'source': 'TSZ2000', 'target': 'Gewild', 'value': 1, 'group': 'de'}, {'source': 'Laparmakerli', 'target': 'Gewild', 'value': 1, 'group': 'de'}]};
+  
+  var link = svg.append("g")
+      .attr("class", "links")
+    .selectAll("line")
+    .data(graph.links)
+    .attr("title", function(d) { return d.group; })
+    .enter().append("line")
+    .style("stroke", function(d) { return color(d.group); })
+      .attr("stroke-width", function(d) { return Math.sqrt(d.value); })
+    .on("mousemove", function(d) {
+        console.log("source: " + d.source.id + ", target: " + d.target.id + ", dbpedia: " + d.group)});
+      //.attr("data-legend",function(d) { return d.group});
+      
+
+  var node = svg.append("g")
+      .attr("class", "nodes")
+    .selectAll("g")
+    .data(graph.nodes)
+    .enter().append("g");
+    
+  var circles = node.append("circle")
+      .attr("r", function(d) { return Math.sqrt(d.value)*1.5; })
+      .attr("fill", "#9999A1")
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  var lables = node.append("text")
+      .text(function(d) {
+        return d.id;
+      })
+      .attr('x', 6)
+      .attr('y', 3);
+
+  node.append("title")
+      .text(function(d) { return d.id; });
+      
+
+var charge_force = d3.forceManyBody()
+    .strength(-150);
+    
+var legend = svg.selectAll(".legend")
+    .data(color.domain())
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(" + i * 40 +"," + "1)"; });
+
+legend.append("rect")
+    .attr("x", 10)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", color);
+
+legend.append("text")
+    .attr("x", 30)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    //.style("text-anchor", "end")
+    .text(function(d) { return d });
+    
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked)
+      .force("charge_force", charge_force);
+
+  simulation.force("link")
+      .links(graph.links);
+
+  function ticked() {
+    link
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node
+        .attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
+  }
+
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+</script>
+</html>

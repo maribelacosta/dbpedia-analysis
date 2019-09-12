@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+</style>
+<body>
+<svg width="650" height="650"></svg>
+
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var c = [];
+c = c.concat(d3.schemeCategory20);
+c = c.concat(d3.schemeCategory20c);
+
+var color = d3.scaleOrdinal(c);
+console.log("color", d3.schemeCategory20);
+
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+    
+
+var graph = {'nodes': [{'id': 'Celiolarcher', 'group': 1, 'value': 1}, {'id': 'Golicar', 'group': 1, 'value': 1}, {'id': 'AlbertoTrindade', 'group': 1, 'value': 52}, {'id': 'Heliorodrigues', 'group': 1, 'value': 32}, {'id': 'Marcosvgf95', 'group': 1, 'value': 3}, {'id': 'Jairofsouza', 'group': 1, 'value': 39}, {'id': 'Lucas.carnicelli', 'group': 1, 'value': 2}, {'id': 'Fran.weidt', 'group': 1, 'value': 8}, {'id': 'Lucasyoshida', 'group': 1, 'value': 1}, {'id': 'Mateus.stock', 'group': 1, 'value': 5}, {'id': 'DanusaRibeiro', 'group': 1, 'value': 65}, {'id': 'Waltertravassos', 'group': 1, 'value': 10}, {'id': 'Laura', 'group': 1, 'value': 5}, {'id': 'Berg3000', 'group': 1, 'value': 2}, {'id': 'Pablomendes', 'group': 1, 'value': 6}, {'id': 'Michelmmk', 'group': 1, 'value': 6}, {'id': 'Kaioc89', 'group': 1, 'value': 6}, {'id': 'Joaomarcos', 'group': 1, 'value': 1}, {'id': 'Jimregan', 'group': 1, 'value': 3}, {'id': 'JonatasRocha', 'group': 1, 'value': 6}, {'id': 'VictorCSx', 'group': 1, 'value': 2}, {'id': 'Igor Couto', 'group': 1, 'value': 2}, {'id': 'Delvoux', 'group': 1, 'value': 8}, {'id': 'VictorFS', 'group': 1, 'value': 2}, {'id': 'Joraojr', 'group': 1, 'value': 11}, {'id': 'Kreis', 'group': 1, 'value': 12}, {'id': 'Rique1411', 'group': 1, 'value': 9}, {'id': 'Eduardo.amaral', 'group': 1, 'value': 2}, {'id': 'Chrisahn', 'group': 1, 'value': 7}, {'id': 'Jonatascastro12', 'group': 1, 'value': 1}, {'id': 'VladimirAlexiev', 'group': 1, 'value': 1}, {'id': 'Jimkont', 'group': 1, 'value': 2}, {'id': 'Marcelobo', 'group': 1, 'value': 2}, {'id': 'AnjaJentzsch', 'group': 1, 'value': 1}, {'id': 'Ninniuz', 'group': 1, 'value': 4}, {'id': 'Bruno Pelizari', 'group': 1, 'value': 4}, {'id': 'Anfarp', 'group': 1, 'value': 3}, {'id': 'MVJunior', 'group': 1, 'value': 1}, {'id': 'Pedrogazzola', 'group': 1, 'value': 3}, {'id': 'Lucas.ufjf', 'group': 1, 'value': 24}, {'id': 'Lucasrossini', 'group': 1, 'value': 1}, {'id': 'Brunoguic', 'group': 1, 'value': 1}, {'id': 'Welington.veiga', 'group': 1, 'value': 3}, {'id': 'Alinegodinho', 'group': 1, 'value': 2}, {'id': 'Samuel.vieira', 'group': 1, 'value': 2}, {'id': 'Nicolasferranti', 'group': 1, 'value': 2}, {'id': 'Marcushenrique', 'group': 1, 'value': 4}, {'id': 'Lucasjota', 'group': 1, 'value': 1}, {'id': 'Alan.Santos', 'group': 1, 'value': 3}, {'id': 'Maxjakob', 'group': 1, 'value': 1}, {'id': 'Nono', 'group': 1, 'value': 3}, {'id': 'Claudio.martins', 'group': 1, 'value': 1}, {'id': 'Bernadette', 'group': 1, 'value': 1}, {'id': 'Rooke', 'group': 1, 'value': 6}, {'id': 'Dasilvactu', 'group': 1, 'value': 9}, {'id': 'Marcelo.machado', 'group': 1, 'value': 2}, {'id': 'Victorcpereira', 'group': 1, 'value': 2}, {'id': 'Carlosfelipe', 'group': 1, 'value': 1}, {'id': 'Diego.oliveira', 'group': 1, 'value': 1}, {'id': 'Mgns', 'group': 1, 'value': 2}, {'id': 'Marcellaleite', 'group': 1, 'value': 2}], 'links': [{'source': 'Celiolarcher', 'target': 'Golicar', 'value': 1, 'group': 'pt'}, {'source': 'Celiolarcher', 'target': 'AlbertoTrindade', 'value': 1, 'group': 'pt'}, {'source': 'Celiolarcher', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Golicar', 'target': 'AlbertoTrindade', 'value': 1, 'group': 'pt'}, {'source': 'Golicar', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Heliorodrigues', 'value': 7, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'AlbertoTrindade', 'value': 2, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'Jairofsouza', 'value': 3, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'Lucas.carnicelli', 'value': 1, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'Fran.weidt', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Jairofsouza', 'value': 11, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Lucas.carnicelli', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Fran.weidt', 'value': 2, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Lucas.carnicelli', 'value': 2, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Fran.weidt', 'value': 3, 'group': 'pt'}, {'source': 'Lucas.carnicelli', 'target': 'Fran.weidt', 'value': 1, 'group': 'pt'}, {'source': 'Lucasyoshida', 'target': 'Mateus.stock', 'value': 1, 'group': 'pt'}, {'source': 'Lucasyoshida', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Mateus.stock', 'target': 'Jairofsouza', 'value': 4, 'group': 'pt'}, {'source': 'Mateus.stock', 'target': 'Waltertravassos', 'value': 2, 'group': 'pt'}, {'source': 'Mateus.stock', 'target': 'Laura', 'value': 1, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Jairofsouza', 'value': 3, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Laura', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Laura', 'value': 1, 'group': 'pt'}, {'source': 'Mateus.stock', 'target': 'AlbertoTrindade', 'value': 1, 'group': 'pt'}, {'source': 'Mateus.stock', 'target': 'DanusaRibeiro', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'DanusaRibeiro', 'value': 3, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'DanusaRibeiro', 'value': 3, 'group': 'pt'}, {'source': 'Berg3000', 'target': 'Pablomendes', 'value': 1, 'group': 'pt'}, {'source': 'Heliorodrigues', 'target': 'DanusaRibeiro', 'value': 5, 'group': 'pt'}, {'source': 'Michelmmk', 'target': 'Waltertravassos', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Joaomarcos', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Berg3000', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Jairofsouza', 'value': 3, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Joaomarcos', 'target': 'Berg3000', 'value': 1, 'group': 'pt'}, {'source': 'Joaomarcos', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Joaomarcos', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Joaomarcos', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Berg3000', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Berg3000', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Berg3000', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Heliorodrigues', 'value': 2, 'group': 'pt'}, {'source': 'Jimregan', 'target': 'Heliorodrigues', 'value': 3, 'group': 'pt'}, {'source': 'VictorCSx', 'target': 'JonatasRocha', 'value': 1, 'group': 'pt'}, {'source': 'VictorCSx', 'target': 'Igor Couto', 'value': 1, 'group': 'pt'}, {'source': 'JonatasRocha', 'target': 'Igor Couto', 'value': 1, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'Delvoux', 'value': 1, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'VictorFS', 'value': 1, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'Joraojr', 'value': 1, 'group': 'pt'}, {'source': 'Delvoux', 'target': 'VictorFS', 'value': 1, 'group': 'pt'}, {'source': 'Delvoux', 'target': 'Jairofsouza', 'value': 3, 'group': 'pt'}, {'source': 'Delvoux', 'target': 'Joraojr', 'value': 5, 'group': 'pt'}, {'source': 'VictorFS', 'target': 'Jairofsouza', 'value': 2, 'group': 'pt'}, {'source': 'VictorFS', 'target': 'Joraojr', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Joraojr', 'value': 5, 'group': 'pt'}, {'source': 'Kreis', 'target': 'AlbertoTrindade', 'value': 5, 'group': 'pt'}, {'source': 'Kreis', 'target': 'Jairofsouza', 'value': 6, 'group': 'pt'}, {'source': 'Kreis', 'target': 'VictorFS', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'VictorFS', 'value': 1, 'group': 'pt'}, {'source': 'JonatasRocha', 'target': 'DanusaRibeiro', 'value': 1, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Rique1411', 'value': 1, 'group': 'pt'}, {'source': 'Kreis', 'target': 'Eduardo.amaral', 'value': 2, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Eduardo.amaral', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Eduardo.amaral', 'value': 1, 'group': 'pt'}, {'source': 'Rique1411', 'target': 'Chrisahn', 'value': 3, 'group': 'pt'}, {'source': 'Rique1411', 'target': 'Jonatascastro12', 'value': 1, 'group': 'pt'}, {'source': 'Rique1411', 'target': 'DanusaRibeiro', 'value': 3, 'group': 'pt'}, {'source': 'Chrisahn', 'target': 'Jonatascastro12', 'value': 1, 'group': 'pt'}, {'source': 'Chrisahn', 'target': 'DanusaRibeiro', 'value': 4, 'group': 'pt'}, {'source': 'Jonatascastro12', 'target': 'DanusaRibeiro', 'value': 1, 'group': 'pt'}, {'source': 'Chrisahn', 'target': 'Kreis', 'value': 1, 'group': 'pt'}, {'source': 'Chrisahn', 'target': 'VladimirAlexiev', 'value': 1, 'group': 'pt'}, {'source': 'DanusaRibeiro', 'target': 'Kreis', 'value': 1, 'group': 'pt'}, {'source': 'DanusaRibeiro', 'target': 'VladimirAlexiev', 'value': 1, 'group': 'pt'}, {'source': 'Rique1411', 'target': 'Kreis', 'value': 2, 'group': 'pt'}, {'source': 'Rique1411', 'target': 'VladimirAlexiev', 'value': 1, 'group': 'pt'}, {'source': 'Kreis', 'target': 'VladimirAlexiev', 'value': 1, 'group': 'pt'}, {'source': 'Rique1411', 'target': 'Jairofsouza', 'value': 2, 'group': 'pt'}, {'source': 'Rique1411', 'target': 'Jimkont', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Jimkont', 'value': 1, 'group': 'pt'}, {'source': 'Marcelobo', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Marcelobo', 'target': 'AnjaJentzsch', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'AnjaJentzsch', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Jimkont', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Ninniuz', 'value': 1, 'group': 'pt'}, {'source': 'Delvoux', 'target': 'Bruno Pelizari', 'value': 1, 'group': 'pt'}, {'source': 'Delvoux', 'target': 'Anfarp', 'value': 3, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Bruno Pelizari', 'value': 3, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Anfarp', 'value': 1, 'group': 'pt'}, {'source': 'Joraojr', 'target': 'Bruno Pelizari', 'value': 2, 'group': 'pt'}, {'source': 'Joraojr', 'target': 'Anfarp', 'value': 3, 'group': 'pt'}, {'source': 'Bruno Pelizari', 'target': 'Anfarp', 'value': 1, 'group': 'pt'}, {'source': 'Kreis', 'target': 'MVJunior', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'MVJunior', 'value': 1, 'group': 'pt'}, {'source': 'Pedrogazzola', 'target': 'Jairofsouza', 'value': 3, 'group': 'pt'}, {'source': 'Pedrogazzola', 'target': 'Waltertravassos', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'AlbertoTrindade', 'value': 6, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Jairofsouza', 'value': 7, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Lucasrossini', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Lucasrossini', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Lucasrossini', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Brunoguic', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Bruno Pelizari', 'value': 1, 'group': 'pt'}, {'source': 'Brunoguic', 'target': 'Kreis', 'value': 1, 'group': 'pt'}, {'source': 'Brunoguic', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Brunoguic', 'target': 'Bruno Pelizari', 'value': 1, 'group': 'pt'}, {'source': 'Kreis', 'target': 'Bruno Pelizari', 'value': 1, 'group': 'pt'}, {'source': 'Welington.veiga', 'target': 'Jairofsouza', 'value': 2, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Mateus.stock', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Waltertravassos', 'value': 1, 'group': 'pt'}, {'source': 'Kreis', 'target': 'Welington.veiga', 'value': 1, 'group': 'pt'}, {'source': 'Welington.veiga', 'target': 'Eduardo.amaral', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Alinegodinho', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Alinegodinho', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Alinegodinho', 'value': 1, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'Lucas.ufjf', 'value': 1, 'group': 'pt'}, {'source': 'Marcosvgf95', 'target': 'Kreis', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Kreis', 'value': 3, 'group': 'pt'}, {'source': 'Kreis', 'target': 'Pablomendes', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Joraojr', 'value': 3, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Pablomendes', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Waltertravassos', 'value': 4, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Samuel.vieira', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Nicolasferranti', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Marcushenrique', 'value': 3, 'group': 'pt'}, {'source': 'Pablomendes', 'target': 'Waltertravassos', 'value': 1, 'group': 'pt'}, {'source': 'Pablomendes', 'target': 'Samuel.vieira', 'value': 1, 'group': 'pt'}, {'source': 'Pablomendes', 'target': 'Nicolasferranti', 'value': 1, 'group': 'pt'}, {'source': 'Pablomendes', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Pablomendes', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Pablomendes', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Samuel.vieira', 'value': 1, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Nicolasferranti', 'value': 1, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Heliorodrigues', 'value': 2, 'group': 'pt'}, {'source': 'Waltertravassos', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Samuel.vieira', 'target': 'Nicolasferranti', 'value': 1, 'group': 'pt'}, {'source': 'Samuel.vieira', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Samuel.vieira', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Samuel.vieira', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Nicolasferranti', 'target': 'Jimregan', 'value': 1, 'group': 'pt'}, {'source': 'Nicolasferranti', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Nicolasferranti', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Jimregan', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Heliorodrigues', 'target': 'Marcushenrique', 'value': 2, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Nicolasferranti', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Nicolasferranti', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Anfarp', 'value': 2, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Joraojr', 'value': 4, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Delvoux', 'value': 2, 'group': 'pt'}, {'source': 'Delvoux', 'target': 'AlbertoTrindade', 'value': 2, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Anfarp', 'value': 1, 'group': 'pt'}, {'source': 'Michelmmk', 'target': 'Lucas.ufjf', 'value': 2, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Waltertravassos', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Laura', 'value': 2, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Maxjakob', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Nono', 'value': 3, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'DanusaRibeiro', 'value': 2, 'group': 'pt'}, {'source': 'Maxjakob', 'target': 'Nono', 'value': 1, 'group': 'pt'}, {'source': 'Maxjakob', 'target': 'DanusaRibeiro', 'value': 1, 'group': 'pt'}, {'source': 'Nono', 'target': 'DanusaRibeiro', 'value': 1, 'group': 'pt'}, {'source': 'Michelmmk', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Michelmmk', 'target': 'Joraojr', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Nono', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Fran.weidt', 'value': 3, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Chrisahn', 'value': 1, 'group': 'pt'}, {'source': 'Chrisahn', 'target': 'Fran.weidt', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Claudio.martins', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Claudio.martins', 'value': 1, 'group': 'pt'}, {'source': 'Joraojr', 'target': 'Claudio.martins', 'value': 1, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Bernadette', 'value': 1, 'group': 'pt'}, {'source': 'Kreis', 'target': 'Bernadette', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Bernadette', 'value': 1, 'group': 'pt'}, {'source': 'Dasilvactu', 'target': 'Chrisahn', 'value': 2, 'group': 'pt'}, {'source': 'Dasilvactu', 'target': 'DanusaRibeiro', 'value': 1, 'group': 'pt'}, {'source': 'Dasilvactu', 'target': 'Ninniuz', 'value': 3, 'group': 'pt'}, {'source': 'Lucas.ufjf', 'target': 'Dasilvactu', 'value': 1, 'group': 'pt'}, {'source': 'Dasilvactu', 'target': 'Laura', 'value': 1, 'group': 'pt'}, {'source': 'Dasilvactu', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Chrisahn', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Heliorodrigues', 'target': 'Laura', 'value': 2, 'group': 'pt'}, {'source': 'Alan.Santos', 'target': 'Dasilvactu', 'value': 1, 'group': 'pt'}, {'source': 'Alan.Santos', 'target': 'Joraojr', 'value': 1, 'group': 'pt'}, {'source': 'Dasilvactu', 'target': 'Joraojr', 'value': 1, 'group': 'pt'}, {'source': 'Rooke', 'target': 'AlbertoTrindade', 'value': 2, 'group': 'pt'}, {'source': 'Rooke', 'target': 'Marcushenrique', 'value': 3, 'group': 'pt'}, {'source': 'Rooke', 'target': 'Fran.weidt', 'value': 2, 'group': 'pt'}, {'source': 'Rooke', 'target': 'Marcelo.machado', 'value': 1, 'group': 'pt'}, {'source': 'Fran.weidt', 'target': 'Marcelo.machado', 'value': 1, 'group': 'pt'}, {'source': 'Dasilvactu', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Victorcpereira', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Victorcpereira', 'target': 'Joraojr', 'value': 2, 'group': 'pt'}, {'source': 'Victorcpereira', 'target': 'Bruno Pelizari', 'value': 1, 'group': 'pt'}, {'source': 'Carlosfelipe', 'target': 'Igor Couto', 'value': 1, 'group': 'pt'}, {'source': 'Samuel.vieira', 'target': 'Diego.oliveira', 'value': 1, 'group': 'pt'}, {'source': 'Samuel.vieira', 'target': 'Bruno Pelizari', 'value': 1, 'group': 'pt'}, {'source': 'Diego.oliveira', 'target': 'Bruno Pelizari', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Laura', 'value': 1, 'group': 'pt'}, {'source': 'Heliorodrigues', 'target': 'Mgns', 'value': 1, 'group': 'pt'}, {'source': 'Heliorodrigues', 'target': 'Rique1411', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Mgns', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Rique1411', 'value': 2, 'group': 'pt'}, {'source': 'Mgns', 'target': 'Rique1411', 'value': 1, 'group': 'pt'}, {'source': 'JonatasRocha', 'target': 'Chrisahn', 'value': 1, 'group': 'pt'}, {'source': 'Alan.Santos', 'target': 'Mgns', 'value': 1, 'group': 'pt'}, {'source': 'Rooke', 'target': 'Jairofsouza', 'value': 1, 'group': 'pt'}, {'source': 'Rooke', 'target': 'Heliorodrigues', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Rooke', 'target': 'Joraojr', 'value': 1, 'group': 'pt'}, {'source': 'Rooke', 'target': 'Victorcpereira', 'value': 1, 'group': 'pt'}, {'source': 'Fran.weidt', 'target': 'Joraojr', 'value': 1, 'group': 'pt'}, {'source': 'Fran.weidt', 'target': 'Victorcpereira', 'value': 1, 'group': 'pt'}, {'source': 'Fran.weidt', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Joraojr', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Victorcpereira', 'target': 'Marcushenrique', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Kreis', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Marcellaleite', 'value': 1, 'group': 'pt'}, {'source': 'Kreis', 'target': 'Marcellaleite', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Marcellaleite', 'value': 2, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'DanusaRibeiro', 'value': 1, 'group': 'pt'}, {'source': 'Kaioc89', 'target': 'Marcelo.machado', 'value': 1, 'group': 'pt'}, {'source': 'Jairofsouza', 'target': 'Marcelo.machado', 'value': 1, 'group': 'pt'}, {'source': 'DanusaRibeiro', 'target': 'Marcelo.machado', 'value': 1, 'group': 'pt'}, {'source': 'AlbertoTrindade', 'target': 'Marcellaleite', 'value': 1, 'group': 'pt'}, {'source': 'Marcellaleite', 'target': 'Fran.weidt', 'value': 1, 'group': 'pt'}]};
+  
+  var link = svg.append("g")
+      .attr("class", "links")
+    .selectAll("line")
+    .data(graph.links)
+    .attr("title", function(d) { return d.group; })
+    .enter().append("line")
+    .style("stroke", function(d) { return color(d.group); })
+      .attr("stroke-width", function(d) { return Math.sqrt(d.value); })
+    .on("mousemove", function(d) {
+        console.log("source: " + d.source.id + ", target: " + d.target.id + ", dbpedia: " + d.group)});
+      //.attr("data-legend",function(d) { return d.group});
+      
+
+  var node = svg.append("g")
+      .attr("class", "nodes")
+    .selectAll("g")
+    .data(graph.nodes)
+    .enter().append("g");
+    
+  var circles = node.append("circle")
+      .attr("r", function(d) { return Math.sqrt(d.value)*1.5; })
+      .attr("fill", "#9999A1")
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  var lables = node.append("text")
+      .text(function(d) {
+        return d.id;
+      })
+      .attr('x', 6)
+      .attr('y', 3);
+
+  node.append("title")
+      .text(function(d) { return d.id; });
+      
+
+var charge_force = d3.forceManyBody()
+    .strength(-150);
+    
+var legend = svg.selectAll(".legend")
+    .data(color.domain())
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(" + i * 40 +"," + "1)"; });
+
+legend.append("rect")
+    .attr("x", 10)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", color);
+
+legend.append("text")
+    .attr("x", 30)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    //.style("text-anchor", "end")
+    .text(function(d) { return d });
+    
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked)
+      .force("charge_force", charge_force);
+
+  simulation.force("link")
+      .links(graph.links);
+
+  function ticked() {
+    link
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node
+        .attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
+  }
+
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+</script>
+</html>

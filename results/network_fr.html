@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+</style>
+<body>
+<svg width="650" height="650"></svg>
+
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var c = [];
+c = c.concat(d3.schemeCategory20);
+c = c.concat(d3.schemeCategory20c);
+
+var color = d3.scaleOrdinal(c);
+console.log("color", d3.schemeCategory20);
+
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+    
+
+var graph = {'nodes': [{'id': 'Jplu', 'group': 1, 'value': 150}, {'id': 'Jimregan', 'group': 1, 'value': 38}, {'id': 'VladimirAlexiev', 'group': 1, 'value': 15}, {'id': 'Nono', 'group': 1, 'value': 66}, {'id': 'Ninniuz', 'group': 1, 'value': 5}, {'id': 'Py.vandenbussche', 'group': 1, 'value': 5}, {'id': 'Julien.Cojan', 'group': 1, 'value': 45}, {'id': 'Frmichel', 'group': 1, 'value': 3}, {'id': 'Vadim Onufriev', 'group': 1, 'value': 2}, {'id': 'Eurecom', 'group': 1, 'value': 19}, {'id': 'Chrisahn', 'group': 1, 'value': 4}, {'id': 'Mlefranc', 'group': 1, 'value': 3}, {'id': 'Guyhd', 'group': 1, 'value': 7}, {'id': 'Lcostabe', 'group': 1, 'value': 13}, {'id': 'Alban.gaignard', 'group': 1, 'value': 5}, {'id': 'Alung', 'group': 1, 'value': 9}, {'id': 'Mgns', 'group': 1, 'value': 1}, {'id': 'Louistisserand', 'group': 1, 'value': 2}, {'id': 'Wimmics', 'group': 1, 'value': 3}, {'id': 'Sylvain WMFr', 'group': 1, 'value': 1}, {'id': 'Fabien gandon', 'group': 1, 'value': 5}, {'id': 'Jimkont', 'group': 1, 'value': 2}, {'id': 'Maxjakob', 'group': 1, 'value': 2}, {'id': 'AnjaJentzsch', 'group': 1, 'value': 1}, {'id': 'Kreis', 'group': 1, 'value': 1}, {'id': 'Descl', 'group': 1, 'value': 1}, {'id': 'Damien legrand', 'group': 1, 'value': 1}], 'links': [{'source': 'Jplu', 'target': 'Jimregan', 'value': 37, 'group': 'fr'}, {'source': 'Jplu', 'target': 'VladimirAlexiev', 'value': 12, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Nono', 'value': 26, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Ninniuz', 'value': 5, 'group': 'fr'}, {'source': 'Nono', 'target': 'Ninniuz', 'value': 1, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Py.vandenbussche', 'value': 3, 'group': 'fr'}, {'source': 'Nono', 'target': 'Py.vandenbussche', 'value': 3, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Julien.Cojan', 'value': 21, 'group': 'fr'}, {'source': 'Nono', 'target': 'Julien.Cojan', 'value': 22, 'group': 'fr'}, {'source': 'Jimregan', 'target': 'VladimirAlexiev', 'value': 3, 'group': 'fr'}, {'source': 'Nono', 'target': 'Eurecom', 'value': 12, 'group': 'fr'}, {'source': 'Julien.Cojan', 'target': 'Eurecom', 'value': 7, 'group': 'fr'}, {'source': 'Nono', 'target': 'Chrisahn', 'value': 2, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'Julien.Cojan', 'value': 2, 'group': 'fr'}, {'source': 'Mlefranc', 'target': 'Nono', 'value': 1, 'group': 'fr'}, {'source': 'Mlefranc', 'target': 'Julien.Cojan', 'value': 2, 'group': 'fr'}, {'source': 'Mlefranc', 'target': 'Eurecom', 'value': 1, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Lcostabe', 'value': 5, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Eurecom', 'value': 10, 'group': 'fr'}, {'source': 'Lcostabe', 'target': 'Nono', 'value': 7, 'group': 'fr'}, {'source': 'Lcostabe', 'target': 'Julien.Cojan', 'value': 2, 'group': 'fr'}, {'source': 'Lcostabe', 'target': 'Eurecom', 'value': 1, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Alban.gaignard', 'value': 3, 'group': 'fr'}, {'source': 'Nono', 'target': 'Alban.gaignard', 'value': 3, 'group': 'fr'}, {'source': 'Alban.gaignard', 'target': 'Julien.Cojan', 'value': 2, 'group': 'fr'}, {'source': 'Alban.gaignard', 'target': 'Eurecom', 'value': 2, 'group': 'fr'}, {'source': 'Julien.Cojan', 'target': 'Ninniuz', 'value': 1, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Alung', 'value': 6, 'group': 'fr'}, {'source': 'Alung', 'target': 'VladimirAlexiev', 'value': 1, 'group': 'fr'}, {'source': 'Nono', 'target': 'Alung', 'value': 5, 'group': 'fr'}, {'source': 'Julien.Cojan', 'target': 'Alung', 'value': 3, 'group': 'fr'}, {'source': 'Nono', 'target': 'Mgns', 'value': 1, 'group': 'fr'}, {'source': 'Julien.Cojan', 'target': 'Mgns', 'value': 1, 'group': 'fr'}, {'source': 'Mgns', 'target': 'Alung', 'value': 1, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Louistisserand', 'value': 1, 'group': 'fr'}, {'source': 'Sylvain WMFr', 'target': 'Lcostabe', 'value': 1, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'Jplu', 'value': 2, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'Lcostabe', 'value': 1, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'Jimregan', 'value': 1, 'group': 'fr'}, {'source': 'Lcostabe', 'target': 'Jimregan', 'value': 1, 'group': 'fr'}, {'source': 'Jimregan', 'target': 'Julien.Cojan', 'value': 3, 'group': 'fr'}, {'source': 'Jimregan', 'target': 'Eurecom', 'value': 2, 'group': 'fr'}, {'source': 'VladimirAlexiev', 'target': 'Eurecom', 'value': 1, 'group': 'fr'}, {'source': 'Fabien gandon', 'target': 'Nono', 'value': 2, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Fabien gandon', 'value': 1, 'group': 'fr'}, {'source': 'Fabien gandon', 'target': 'Eurecom', 'value': 1, 'group': 'fr'}, {'source': 'Julien.Cojan', 'target': 'VladimirAlexiev', 'value': 2, 'group': 'fr'}, {'source': 'Jimregan', 'target': 'Nono', 'value': 3, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Jimkont', 'value': 2, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'Maxjakob', 'value': 1, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'Py.vandenbussche', 'value': 2, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'Eurecom', 'value': 1, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Maxjakob', 'value': 1, 'group': 'fr'}, {'source': 'Nono', 'target': 'Maxjakob', 'value': 1, 'group': 'fr'}, {'source': 'Maxjakob', 'target': 'Py.vandenbussche', 'value': 2, 'group': 'fr'}, {'source': 'Maxjakob', 'target': 'Eurecom', 'value': 1, 'group': 'fr'}, {'source': 'Py.vandenbussche', 'target': 'Eurecom', 'value': 2, 'group': 'fr'}, {'source': 'Py.vandenbussche', 'target': 'AnjaJentzsch', 'value': 1, 'group': 'fr'}, {'source': 'Chrisahn', 'target': 'AnjaJentzsch', 'value': 1, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Kreis', 'value': 1, 'group': 'fr'}, {'source': 'Nono', 'target': 'Kreis', 'value': 1, 'group': 'fr'}, {'source': 'Nono', 'target': 'Jimkont', 'value': 1, 'group': 'fr'}, {'source': 'Kreis', 'target': 'Jimkont', 'value': 1, 'group': 'fr'}, {'source': 'Kreis', 'target': 'Julien.Cojan', 'value': 1, 'group': 'fr'}, {'source': 'Jimkont', 'target': 'Julien.Cojan', 'value': 1, 'group': 'fr'}, {'source': 'Nono', 'target': 'VladimirAlexiev', 'value': 3, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Wimmics', 'value': 1, 'group': 'fr'}, {'source': 'Wimmics', 'target': 'VladimirAlexiev', 'value': 1, 'group': 'fr'}, {'source': 'Damien legrand', 'target': 'Jplu', 'value': 1, 'group': 'fr'}, {'source': 'Damien legrand', 'target': 'Nono', 'value': 1, 'group': 'fr'}, {'source': 'Damien legrand', 'target': 'Lcostabe', 'value': 1, 'group': 'fr'}, {'source': 'Guyhd', 'target': 'Nono', 'value': 2, 'group': 'fr'}, {'source': 'Jplu', 'target': 'Guyhd', 'value': 1, 'group': 'fr'}, {'source': 'Jimregan', 'target': 'Guyhd', 'value': 1, 'group': 'fr'}, {'source': 'Guyhd', 'target': 'Julien.Cojan', 'value': 1, 'group': 'fr'}]};
+  
+  var link = svg.append("g")
+      .attr("class", "links")
+    .selectAll("line")
+    .data(graph.links)
+    .attr("title", function(d) { return d.group; })
+    .enter().append("line")
+    .style("stroke", function(d) { return color(d.group); })
+      .attr("stroke-width", function(d) { return Math.sqrt(d.value); })
+    .on("mousemove", function(d) {
+        console.log("source: " + d.source.id + ", target: " + d.target.id + ", dbpedia: " + d.group)});
+      //.attr("data-legend",function(d) { return d.group});
+      
+
+  var node = svg.append("g")
+      .attr("class", "nodes")
+    .selectAll("g")
+    .data(graph.nodes)
+    .enter().append("g");
+    
+  var circles = node.append("circle")
+      .attr("r", function(d) { return Math.sqrt(d.value)*1.5; })
+      .attr("fill", "#9999A1")
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  var lables = node.append("text")
+      .text(function(d) {
+        return d.id;
+      })
+      .attr('x', 6)
+      .attr('y', 3);
+
+  node.append("title")
+      .text(function(d) { return d.id; });
+      
+
+var charge_force = d3.forceManyBody()
+    .strength(-150);
+    
+var legend = svg.selectAll(".legend")
+    .data(color.domain())
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(" + i * 40 +"," + "1)"; });
+
+legend.append("rect")
+    .attr("x", 10)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", color);
+
+legend.append("text")
+    .attr("x", 30)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    //.style("text-anchor", "end")
+    .text(function(d) { return d });
+    
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked)
+      .force("charge_force", charge_force);
+
+  simulation.force("link")
+      .links(graph.links);
+
+  function ticked() {
+    link
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node
+        .attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
+  }
+
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+</script>
+</html>

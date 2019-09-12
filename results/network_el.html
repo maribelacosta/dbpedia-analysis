@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+</style>
+<body>
+<svg width="650" height="650"></svg>
+
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var c = [];
+c = c.concat(d3.schemeCategory20);
+c = c.concat(d3.schemeCategory20c);
+
+var color = d3.scaleOrdinal(c);
+console.log("color", d3.schemeCategory20);
+
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+    
+
+var graph = {'nodes': [{'id': 'Webscience gr', 'group': 1, 'value': 116}, {'id': 'Chatzilefteris', 'group': 1, 'value': 10}, {'id': 'Jimkont', 'group': 1, 'value': 131}, {'id': 'Zorba22985', 'group': 1, 'value': 11}, {'id': 'Marinach', 'group': 1, 'value': 19}, {'id': 'Pr tan', 'group': 1, 'value': 6}, {'id': 'Webscience2014', 'group': 1, 'value': 12}, {'id': 'Ianthimos', 'group': 1, 'value': 30}, {'id': 'Kamyt', 'group': 1, 'value': 21}, {'id': 'Kostafabeis', 'group': 1, 'value': 19}, {'id': 'Gorgiemart', 'group': 1, 'value': 16}, {'id': 'Argyris', 'group': 1, 'value': 20}, {'id': 'Teosavv', 'group': 1, 'value': 11}, {'id': 'BouNeof', 'group': 1, 'value': 7}, {'id': 'S.karampatakis', 'group': 1, 'value': 20}, {'id': 'Despoina raf', 'group': 1, 'value': 6}, {'id': 'Vadim Onufriev', 'group': 1, 'value': 1}, {'id': 'Tasosventouris', 'group': 1, 'value': 10}, {'id': 'Myrtomp', 'group': 1, 'value': 11}, {'id': 'VladimirAlexiev', 'group': 1, 'value': 3}, {'id': 'Lioutazoi', 'group': 1, 'value': 10}, {'id': 'Chrisahn', 'group': 1, 'value': 8}, {'id': 'Raflak', 'group': 1, 'value': 8}, {'id': 'Dimitrisxor', 'group': 1, 'value': 15}, {'id': 'Akis k10', 'group': 1, 'value': 8}, {'id': 'Karamichos', 'group': 1, 'value': 6}, {'id': 'Vgogoglou', 'group': 1, 'value': 9}, {'id': 'Kreis', 'group': 1, 'value': 11}, {'id': 'Philippos', 'group': 1, 'value': 12}, {'id': 'Pparisis', 'group': 1, 'value': 11}, {'id': 'Maxjakob', 'group': 1, 'value': 3}, {'id': 'Chile', 'group': 1, 'value': 1}], 'links': [{'source': 'Chatzilefteris', 'target': 'Jimkont', 'value': 3, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Jimkont', 'value': 59, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Webscience gr', 'value': 8, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Marinach', 'value': 2, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Marinach', 'value': 5, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Kamyt', 'value': 8, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Kostafabeis', 'value': 7, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Kostafabeis', 'value': 6, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Gorgiemart', 'value': 10, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Argyris', 'value': 10, 'group': 'el'}, {'source': 'Gorgiemart', 'target': 'Argyris', 'value': 4, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Webscience2014', 'value': 1, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Gorgiemart', 'value': 1, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'BouNeof', 'value': 3, 'group': 'el'}, {'source': 'Argyris', 'target': 'BouNeof', 'value': 4, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Jimkont', 'value': 6, 'group': 'el'}, {'source': 'Gorgiemart', 'target': 'Jimkont', 'value': 3, 'group': 'el'}, {'source': 'Gorgiemart', 'target': 'Kostafabeis', 'value': 2, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Webscience gr', 'value': 2, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Gorgiemart', 'value': 2, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Kostafabeis', 'value': 3, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Jimkont', 'value': 11, 'group': 'el'}, {'source': 'Kostafabeis', 'target': 'Jimkont', 'value': 10, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Webscience gr', 'value': 12, 'group': 'el'}, {'source': 'Gorgiemart', 'target': 'Kamyt', 'value': 3, 'group': 'el'}, {'source': 'Despoina raf', 'target': 'Marinach', 'value': 2, 'group': 'el'}, {'source': 'Marinach', 'target': 'BouNeof', 'value': 1, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Marinach', 'value': 1, 'group': 'el'}, {'source': 'Tasosventouris', 'target': 'Webscience gr', 'value': 8, 'group': 'el'}, {'source': 'Tasosventouris', 'target': 'Jimkont', 'value': 9, 'group': 'el'}, {'source': 'Tasosventouris', 'target': 'Marinach', 'value': 1, 'group': 'el'}, {'source': 'Jimkont', 'target': 'Marinach', 'value': 4, 'group': 'el'}, {'source': 'VladimirAlexiev', 'target': 'Teosavv', 'value': 2, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Lioutazoi', 'value': 1, 'group': 'el'}, {'source': 'Chrisahn', 'target': 'Webscience gr', 'value': 7, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Raflak', 'value': 1, 'group': 'el'}, {'source': 'VladimirAlexiev', 'target': 'Raflak', 'value': 1, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Myrtomp', 'value': 2, 'group': 'el'}, {'source': 'Jimkont', 'target': 'Akis k10', 'value': 7, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Akis k10', 'value': 1, 'group': 'el'}, {'source': 'Kostafabeis', 'target': 'Akis k10', 'value': 2, 'group': 'el'}, {'source': 'Despoina raf', 'target': 'S.karampatakis', 'value': 2, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Argyris', 'value': 4, 'group': 'el'}, {'source': 'Argyris', 'target': 'Jimkont', 'value': 5, 'group': 'el'}, {'source': 'Lioutazoi', 'target': 'Jimkont', 'value': 6, 'group': 'el'}, {'source': 'Kostafabeis', 'target': 'Marinach', 'value': 1, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Jimkont', 'value': 7, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Jimkont', 'value': 8, 'group': 'el'}, {'source': 'Karamichos', 'target': 'Jimkont', 'value': 6, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Webscience gr', 'value': 5, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Raflak', 'value': 1, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Raflak', 'value': 2, 'group': 'el'}, {'source': 'Jimkont', 'target': 'Raflak', 'value': 3, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Jimkont', 'value': 10, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Karamichos', 'value': 1, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Webscience gr', 'value': 6, 'group': 'el'}, {'source': 'Karamichos', 'target': 'Webscience gr', 'value': 2, 'group': 'el'}, {'source': 'Jimkont', 'target': 'Vgogoglou', 'value': 8, 'group': 'el'}, {'source': 'Kreis', 'target': 'Philippos', 'value': 3, 'group': 'el'}, {'source': 'Kreis', 'target': 'Webscience gr', 'value': 10, 'group': 'el'}, {'source': 'Kreis', 'target': 'Jimkont', 'value': 6, 'group': 'el'}, {'source': 'Philippos', 'target': 'Webscience gr', 'value': 9, 'group': 'el'}, {'source': 'Philippos', 'target': 'Jimkont', 'value': 11, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Webscience gr', 'value': 7, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Akis k10', 'value': 3, 'group': 'el'}, {'source': 'Tasosventouris', 'target': 'S.karampatakis', 'value': 1, 'group': 'el'}, {'source': 'Tasosventouris', 'target': 'Philippos', 'value': 1, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Philippos', 'value': 1, 'group': 'el'}, {'source': 'Jimkont', 'target': 'Teosavv', 'value': 5, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Gorgiemart', 'value': 1, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Ianthimos', 'value': 2, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Kamyt', 'value': 2, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Argyris', 'value': 1, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Argyris', 'value': 3, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Kostafabeis', 'value': 2, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Argyris', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Jimkont', 'value': 7, 'group': 'el'}, {'source': 'Karamichos', 'target': 'Philippos', 'value': 1, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Philippos', 'value': 1, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Pr tan', 'value': 1, 'group': 'el'}, {'source': 'Pr tan', 'target': 'Webscience gr', 'value': 5, 'group': 'el'}, {'source': 'Pr tan', 'target': 'Jimkont', 'value': 2, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Vgogoglou', 'value': 2, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'Vgogoglou', 'value': 5, 'group': 'el'}, {'source': 'Pparisis', 'target': 'Jimkont', 'value': 2, 'group': 'el'}, {'source': 'Myrtomp', 'target': 'Jimkont', 'value': 3, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Tasosventouris', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Kostafabeis', 'value': 2, 'group': 'el'}, {'source': 'Tasosventouris', 'target': 'Kostafabeis', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Gorgiemart', 'value': 1, 'group': 'el'}, {'source': 'Kostafabeis', 'target': 'Teosavv', 'value': 1, 'group': 'el'}, {'source': 'Jimkont', 'target': 'BouNeof', 'value': 2, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Kostafabeis', 'value': 1, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Webscience2014', 'value': 1, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Vgogoglou', 'value': 1, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Teosavv', 'value': 2, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Tasosventouris', 'value': 1, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Chrisahn', 'value': 2, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'S.karampatakis', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'BouNeof', 'value': 1, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'BouNeof', 'value': 1, 'group': 'el'}, {'source': 'Kostafabeis', 'target': 'BouNeof', 'value': 2, 'group': 'el'}, {'source': 'Maxjakob', 'target': 'Philippos', 'value': 1, 'group': 'el'}, {'source': 'Maxjakob', 'target': 'Webscience gr', 'value': 2, 'group': 'el'}, {'source': 'Maxjakob', 'target': 'Jimkont', 'value': 3, 'group': 'el'}, {'source': 'Ianthimos', 'target': 'Vgogoglou', 'value': 1, 'group': 'el'}, {'source': 'S.karampatakis', 'target': 'Vgogoglou', 'value': 1, 'group': 'el'}, {'source': 'Lioutazoi', 'target': 'Webscience gr', 'value': 2, 'group': 'el'}, {'source': 'Chrisahn', 'target': 'Jimkont', 'value': 4, 'group': 'el'}, {'source': 'Maxjakob', 'target': 'Akis k10', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Raflak', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Kreis', 'value': 2, 'group': 'el'}, {'source': 'Raflak', 'target': 'Kreis', 'value': 1, 'group': 'el'}, {'source': 'Webscience gr', 'target': 'BouNeof', 'value': 1, 'group': 'el'}, {'source': 'Akis k10', 'target': 'BouNeof', 'value': 1, 'group': 'el'}, {'source': 'Webscience2014', 'target': 'Tasosventouris', 'value': 1, 'group': 'el'}, {'source': 'Myrtomp', 'target': 'Webscience gr', 'value': 1, 'group': 'el'}, {'source': 'Chile', 'target': 'Webscience gr', 'value': 1, 'group': 'el'}, {'source': 'Chile', 'target': 'Kreis', 'value': 1, 'group': 'el'}, {'source': 'Chile', 'target': 'Jimkont', 'value': 1, 'group': 'el'}, {'source': 'Chile', 'target': 'Akis k10', 'value': 1, 'group': 'el'}, {'source': 'Chile', 'target': 'Lioutazoi', 'value': 1, 'group': 'el'}, {'source': 'Kreis', 'target': 'Akis k10', 'value': 1, 'group': 'el'}, {'source': 'Kreis', 'target': 'Lioutazoi', 'value': 1, 'group': 'el'}, {'source': 'Akis k10', 'target': 'Lioutazoi', 'value': 1, 'group': 'el'}, {'source': 'Despoina raf', 'target': 'Webscience gr', 'value': 1, 'group': 'el'}, {'source': 'Despoina raf', 'target': 'Jimkont', 'value': 1, 'group': 'el'}, {'source': 'Kamyt', 'target': 'Vgogoglou', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Chrisahn', 'value': 1, 'group': 'el'}, {'source': 'Zorba22985', 'target': 'Dimitrisxor', 'value': 1, 'group': 'el'}, {'source': 'Chrisahn', 'target': 'Kreis', 'value': 1, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Kreis', 'value': 1, 'group': 'el'}, {'source': 'Pr tan', 'target': 'Chrisahn', 'value': 1, 'group': 'el'}, {'source': 'Tasosventouris', 'target': 'Kreis', 'value': 1, 'group': 'el'}, {'source': 'Dimitrisxor', 'target': 'Pr tan', 'value': 1, 'group': 'el'}, {'source': 'Myrtomp', 'target': 'Chrisahn', 'value': 1, 'group': 'el'}, {'source': 'Myrtomp', 'target': 'Teosavv', 'value': 1, 'group': 'el'}, {'source': 'Chrisahn', 'target': 'Teosavv', 'value': 1, 'group': 'el'}]};
+  
+  var link = svg.append("g")
+      .attr("class", "links")
+    .selectAll("line")
+    .data(graph.links)
+    .attr("title", function(d) { return d.group; })
+    .enter().append("line")
+    .style("stroke", function(d) { return color(d.group); })
+      .attr("stroke-width", function(d) { return Math.sqrt(d.value); })
+    .on("mousemove", function(d) {
+        console.log("source: " + d.source.id + ", target: " + d.target.id + ", dbpedia: " + d.group)});
+      //.attr("data-legend",function(d) { return d.group});
+      
+
+  var node = svg.append("g")
+      .attr("class", "nodes")
+    .selectAll("g")
+    .data(graph.nodes)
+    .enter().append("g");
+    
+  var circles = node.append("circle")
+      .attr("r", function(d) { return Math.sqrt(d.value)*1.5; })
+      .attr("fill", "#9999A1")
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  var lables = node.append("text")
+      .text(function(d) {
+        return d.id;
+      })
+      .attr('x', 6)
+      .attr('y', 3);
+
+  node.append("title")
+      .text(function(d) { return d.id; });
+      
+
+var charge_force = d3.forceManyBody()
+    .strength(-150);
+    
+var legend = svg.selectAll(".legend")
+    .data(color.domain())
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(" + i * 40 +"," + "1)"; });
+
+legend.append("rect")
+    .attr("x", 10)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", color);
+
+legend.append("text")
+    .attr("x", 30)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    //.style("text-anchor", "end")
+    .text(function(d) { return d });
+    
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked)
+      .force("charge_force", charge_force);
+
+  simulation.force("link")
+      .links(graph.links);
+
+  function ticked() {
+    link
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node
+        .attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
+  }
+
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+</script>
+</html>
